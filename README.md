@@ -18,15 +18,15 @@ Usage
 =====
 
 Edit .htaccess to replace:
-- 'http://my-host/apache-modules' with the target base URL
-- '/apache-modules' with the target URL path
+  - 'http://my-host/apache-modules' with the target base URL
+  - '/apache-modules' with the target URL path
 
 Put those files in a directory on the target host:
-- .htaccess
-- list.json
-- list.xhtml
-- ok.txt
-- jquery*.min.js
+  - .htaccess
+  - list.json
+  - list.xhtml
+  - ok.txt
+  - jquery*.min.js
 
 Open list.html remotely. You'll get the result in your browser.
 
@@ -37,8 +37,8 @@ Updating the probed modules
 The list of modules which are probed is static.
 
 This list is in two files which must be in sync
-- .htaccess
-- list.json
+  - .htaccess
+  - list.json
 If they are not in sync, some modules may be incorrectly reported as not
 installed, or not reported at all.
 
@@ -49,8 +49,8 @@ Using setup.php
 ---------------
 
 Requirements:
-- a host which has PHP running with `mod_php`
-- `list.json` and `.htaccess` writeable by Apache
+  - a host which has PHP running with `mod_php`
+  - `list.json` and `.htaccess` writeable by Apache
 
 Load setup.php from a web browser remotely. The `list.json` will be read,
 combined with the local list of installed Apache modules and both `list.json`
@@ -61,5 +61,7 @@ Copyright and license
 =====================
 
 Copyright 2011 Olivier Mengué
+
 License: Apache License, version 2.0
+
 See LICENSE.txt or http://www.apache.org/licenses/LICENSE-2.0.html
