@@ -18,10 +18,12 @@ Usage
 =====
 
 Edit .htaccess to replace:
+
   - 'http://my-host/apache-modules' with the target base URL
   - '/apache-modules' with the target URL path
 
 Put those files in a directory on the target host:
+
   - .htaccess
   - list.json
   - list.xhtml
@@ -37,8 +39,10 @@ Updating the probed modules
 The list of modules which are probed is static.
 
 This list is in two files which must be in sync
+
   - .htaccess
   - list.json
+
 If they are not in sync, some modules may be incorrectly reported as not
 installed, or not reported at all.
 
@@ -49,6 +53,7 @@ Using setup.php
 ---------------
 
 Requirements:
+
   - a host which has PHP running with `mod_php`
   - `list.json` and `.htaccess` writeable by Apache
 
