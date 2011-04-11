@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<script src="jquery-1.5.2.min.js" type="application/javascript"></script>
+<script type="application/javascript">
+(function() {
+  var modules = [];
+  var $doc = $(document);
+  var events_counter = (function(evt, count) {
+    var events = 0;
+    return function() {
+      if (++events == count) $doc.trigger(evt);
+    };
+  })('query-modules', 2);
+
+  $doc.bind('query-modules', function() {
+    var i, l = modules.length;
+    var $tbody = $('#table>tbody');
+    var makeShowResult = function(module, result) {
+      return function() {
+        $tbody.append('<tr><td>'+module+'</td><td class="installed-'+result+'">'+result+'</td>');
+      };
+    };
+    for(i=0; i<l; i++) {
+      $.ajax(modules[i], {
+        type: 'HEAD',
+        success: makeShowResult(modules[i], 'yes'),
+        error:   makeShowResult(modules[i], 'no')
+      });
+    }
+  });
+
+  $.ajax('list.json', {
+    dataType: 'json',
+    success: function(data) {
+      modules = data;
+      modules.push('toto');
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      return 0;
+    },
+    complete: events_counter
+  });
+
+  $(document).ready(events_counter);
+
+})();
+</script>
+<style type="text/css">
+.installed-no {
+  font-weight: bold;
+  color: red;
+}
+.installed-yes {
+  font-weight: bold;
+  color: green;
+}
+#table, #table > thead > tr {
+  border: 1px solid black;
+}
+td {
+  vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>Apache modules</h1>
+<table id="table">
+  <thead>
+    <tr>
+      <td>Module</td>
+      <td>Installed?</td>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</body>
+</html>
